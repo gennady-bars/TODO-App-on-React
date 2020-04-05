@@ -1,36 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function TodoItem() {
+import SearchPanel from './components/SearchPanel';
+import TodoList from './components/TodoList';
+import AppHeader from './components/AppHeader';
+
+
+
+
+const App = () => {
+  const todoData = [
+    {label: 'Drink Coffee', important: false, id: 1},
+    {label: 'Make Awesome App', important: true, id: 2},
+    {label: 'Have a lunch', important: false, id: 3},
+  ]
+  const isLoggedIn = false;
+  const login = <span> Please log in </span>
   return (
-    <span>Drink Coffee</span>
+  <div>
+  {isLoggedIn? null: login}
+     <AppHeader/>
+    <SearchPanel/>
+    <TodoList todos={todoData} />
+  </div>
   )
 }
 
-function TodoList() {
-  return (
-    <ul>
-      <li><TodoItem></TodoItem></li>
-      <li><TodoItem></TodoItem></li>
-      <li><TodoItem></TodoItem></li>
-    </ul>
-  )
-}
 
-function App() {
-  return (
-    <TodoList/>
-  )
-}
-
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+ReactDOM.render(<App/>, document.getElementById('root'))
