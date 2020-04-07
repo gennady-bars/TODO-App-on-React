@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TodoListItem.css';
 
-const TodoListItem = ({ label, important = false }) => {
+const TodoListItem = ({ id, label, important = false, onRemove }) => {
 
   const style = {
     color: important ? 'steelblue' : 'black',
@@ -23,7 +23,8 @@ const TodoListItem = ({ label, important = false }) => {
       </button>
 
       <button type="button"
-              className="btn btn-outline-danger btn-sm float-right">
+              className="btn btn-outline-danger btn-sm float-right"
+              onClick={() => onRemove(id)}>
         <i className="fa fa-trash-o" />
       </button>
     </span>

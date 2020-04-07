@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 import AppHeader from './components/AppHeader';
@@ -16,6 +16,12 @@ const App = () => {
     { label: 'Have a lunch', important: false, id: 3 }
   ];
 
+  let [todos, setTodos] = useState(todoData)
+
+  function removeTodoHandler(id) {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+
   return (
     <div className="todo-app">
       <AppHeader toDo={1} done={3} />
@@ -24,7 +30,7 @@ const App = () => {
         <ItemStatusFilter />
       </div>
 
-      <TodoList todos={todoData} />
+      <TodoList todos={todos} onRemove={removeTodoHandler} />
     </div>
   );
 };
