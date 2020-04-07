@@ -18,6 +18,7 @@ const App = () => {
   ];
 
   let [todos, setTodos] = useState(todoData)
+  let [search, setSearch] = useState('')
 
   function removeTodoHandler(id) {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -50,16 +51,27 @@ const App = () => {
       return newState
     })
   }
+
+  function onChange(e) {
+    let text = e.target.value;
+    setSearch(text)
+    
+  }
+
   let countDone = todos.filter(todo => todo.done).length
   let countTodos = todos.length - countDone
+  let visibleTodos = search? todos.filter(todo => {
+    let regEx = new RegExp(`${search}`, 'i')
+    return todo.label.match(regEx)
+  }): todos
   return (
     <div className="todo-app">
       <AppHeader toDo={countTodos} done={countDone} />
       <div className="top-panel d-flex">
-        <SearchPanel />
+        <SearchPanel onChange={onChange}/>
         <ItemStatusFilter />
       </div>
-      <TodoList todos={todos} 
+      <TodoList todos={visibleTodos}
       onRemove={removeTodoHandler} 
       toggleImportant={toggleImportant}
       handleDone={handleDone} />
