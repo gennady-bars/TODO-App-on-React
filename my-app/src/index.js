@@ -93,7 +93,7 @@ const App = () => {
       <AppHeader toDo={countTodos} done={countDone} />
       <div className="top-panel d-flex">
         <SearchPanel onChange={onChange}/>
-        <ItemStatusFilter onFilterChange={onFilterChange} />
+        <ItemStatusFilter onFilterChange={onFilterChange} filter={filter} />
       </div>
       <TodoList todos={visibleTodos}
       onRemove={removeTodoHandler} 
