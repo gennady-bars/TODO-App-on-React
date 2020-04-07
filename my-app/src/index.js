@@ -26,6 +26,7 @@ const App = () => {
   }
 
   function onAdd(text) {
+    if (!text.trim()) return;
     let todo =  { label: text, important: false, id: +(new Date()) }
     setTodos(state => [...state, todo])
   }
