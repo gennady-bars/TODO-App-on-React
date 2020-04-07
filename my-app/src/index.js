@@ -5,6 +5,7 @@ import AppHeader from './components/AppHeader';
 import SearchPanel from './components/SearchPanel';
 import TodoList from './components/TodoList';
 import ItemStatusFilter from './components/ItemStatusFilter';
+import ItemAddForm from './components/ItemAddForm';
 
 import './index.css';
 
@@ -29,8 +30,8 @@ const App = () => {
         <SearchPanel />
         <ItemStatusFilter />
       </div>
-
       <TodoList todos={todos} onRemove={removeTodoHandler} />
+      <ItemAddForm/>
     </div>
   );
 };
