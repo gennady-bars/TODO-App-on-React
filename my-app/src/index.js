@@ -19,6 +19,7 @@ const App = () => {
 
   let [todos, setTodos] = useState(todoData)
   let [search, setSearch] = useState('')
+  let [filter, setFilter] = useState('all')
 
   function removeTodoHandler(id) {
     setTodos(todos.filter(todo => todo.id !== id))
@@ -58,18 +59,41 @@ const App = () => {
     
   }
 
+  function searchTodos(todos, search) {
+    return search? todos.filter(todo => {
+      let regEx = new RegExp(`${search}`, 'i')
+      return todo.label.match(regEx)
+    }): todos
+  }
+
+  function filterTodos(todos, filter) {
+    switch (filter) {
+      case 'all':
+        return todos;
+      case 'active':
+        return todos.filter(todo => !todo.done);
+      case 'done':
+        return todos.filter(todo => todo.done);
+      default:
+        return todos;
+    }
+  }
+
+  function onFilterChange(filter) {
+    setFilter(filter)
+  }
+
   let countDone = todos.filter(todo => todo.done).length
   let countTodos = todos.length - countDone
-  let visibleTodos = search? todos.filter(todo => {
-    let regEx = new RegExp(`${search}`, 'i')
-    return todo.label.match(regEx)
-  }): todos
+  let visibleTodos = searchTodos(todos, search)
+  visibleTodos = filterTodos(visibleTodos, filter)
+
   return (
     <div className="todo-app">
       <AppHeader toDo={countTodos} done={countDone} />
       <div className="top-panel d-flex">
         <SearchPanel onChange={onChange}/>
-        <ItemStatusFilter />
+        <ItemStatusFilter onFilterChange={onFilterChange} />
       </div>
       <TodoList todos={visibleTodos}
       onRemove={removeTodoHandler} 
