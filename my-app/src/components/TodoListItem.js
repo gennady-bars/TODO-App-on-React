@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './TodoListItem.css';
 
-const TodoListItem = ({ id, label, important = false, onRemove }) => {
-
-  const [done, setDone] = useState(false)
-  function handleDone() {
-    setDone(prevDone => !prevDone)
-  }
+const TodoListItem = ({ label, important, onRemove, toggleImportant, done, handleDone }) => {
 
   let classNames = `todo-list-item`
   if (done) classNames += ' done'
@@ -22,13 +17,14 @@ const TodoListItem = ({ id, label, important = false, onRemove }) => {
       </span>
 
       <button type="button"
-              className="btn btn-outline-success btn-sm float-right">
+              className="btn btn-outline-success btn-sm float-right"
+              onClick={toggleImportant}>
         <i className="fa fa-exclamation" />
       </button>
 
       <button type="button"
               className="btn btn-outline-danger btn-sm float-right"
-              onClick={() => onRemove(id)}>
+              onClick={onRemove}>
         <i className="fa fa-trash-o" />
       </button>
     </span>
